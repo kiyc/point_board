@@ -1,60 +1,89 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
-  </div>
+    <div id="app">
+        <h1>{{ title }}</h1>
+        <table>
+            <user v-for="user in users" v-bind:user="user" v-bind:key="user.name"></user>
+        </table>
+        <h3>
+            <total v-bind:total="total"></total>
+        </h3>
+    </div>
 </template>
 
 <script>
+import User from './User.vue'
+import Total from './Total.vue'
+const config = require('./config.js')
+window.config = config
+
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+    name: 'app',
+    components: { User, Total },
+    data () {
+        return {
+            title: config.TITLE,
+            users: []
+        }
+    },
+    created: function() {
+        this.fetchUsers()
+    },
+    methods: {
+        fetchUsers: function() {
+            let self = this
+            fetch(
+               config.API_BASE_URL + '/users/list.php'
+            ).then(response => {
+                return response.json()
+            }).then(json => {
+                self.users = json.map(elm => {
+                    elm.point = Number(elm.point) 
+                    return elm
+                })
+            });
+        }
+    },
+    computed: {
+        total: function() {
+            return this.users.reduce(function(prev, current, i, arr) {
+                return prev + current.point
+            }, 0)
+        }
     }
-  }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
 }
 
 h1, h2 {
-  font-weight: normal;
+    font-weight: normal;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+h3 {
+    width: 300px;
+    margin: 0 auto;
+    text-align: left;
+    padding-left: 5px;
 }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
+table {
+    width: 300px;
+    margin: 0 auto;
+}
+
+td {
+    text-align: left;
 }
 
 a {
-  color: #42b983;
+    color: #42b983;
 }
 </style>
