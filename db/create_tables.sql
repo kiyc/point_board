@@ -4,3 +4,11 @@ CREATE TABLE IF NOT EXISTS users (
     name TEXT,
     point INTEGER
 );
+
+DROP TABLE IF EXISTS point_logs;
+CREATE TABLE IF NOT EXISTS point_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    point_diff INTEGER NOT NULL,
+    created TEXT NOT NULL
+);
