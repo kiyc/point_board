@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    point INTEGER
+    point INTEGER,
+    password TEXT
 );
 
 DROP TABLE IF EXISTS point_logs;

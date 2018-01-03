@@ -2,8 +2,27 @@
     <tr>
         <td>{{ user.name }}: {{ user.point }}</td>
         <td>
-            <input v-model="point" placeholder="0">
-            <button v-on:click="updatePoint">+</button>
+            <el-button icon="el-icon-plus" v-on:click="openDialog"></el-button>
+            <el-dialog
+                title="Please input point and password"
+                :visible.sync="dialogVisible"
+                width="30%"
+                :before-close="closeDialog">
+                <table>
+                    <tr>
+                        <td>Point</td>
+                        <td><el-input v-model="point" type="text" placeholder="0"></el-input></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><el-input v-model="password" type="password" class="password"></el-input></td>
+                    </tr>
+                </table>
+                <span slot="footer" class="dialog-footer">
+                    <el-button v-on:click="closeDialog">Cancel</el-button>
+                    <el-button type="primary" v-on:click="updatePoint">Submit</el-button>
+                </span>
+            </el-dialog>
         </td>
     </tr>
 </template>
@@ -13,21 +32,28 @@ export default {
     props: ['user'],
     data () {
         return {
-            point: 0
+            point: 0,
+            dialogVisible: false,
+            password: ''
         }
     },
     methods: {
+        openDialog: function() {
+            this.dialogVisible = true
+        },
         updatePoint: function() {
             const point = Number(this.point)
-            this.point = 0
 
             if (!point) return
-            if (!confirm(this.user.name + ' +' + point + ' OK?')) return
 
             let formdata = new FormData()
             formdata.append('id', this.user.id)
+            formdata.append('password', this.password)
             formdata.append('point', point)
-            let user = this.user
+
+            this.point = 0
+            this.password = ''
+            this.dialogVisible = false
 
             fetch(
                 // update point
@@ -44,33 +70,30 @@ export default {
             }).then(status => {
                 // fetch user
                 fetch(
-                    config.API_BASE_URL + '/users/first.php?id=' + user.id
+                    config.API_BASE_URL + '/users/first.php?id=' + this.user.id
                 ).then(response => {
                     return response.json()
                 }).then(json => {
-                    user.point = Number(json.point)
+                    this.user.point = Number(json.point)
                 })
             }).catch(error => {
                 alert(error)
             })
+        },
+        closeDialog: function() {
+            this.point = 0
+            this.password = ''
+            this.dialogVisible = false
         }
     }
 }
 </script>
 
 <style>
-input {
-    width: 40px;
+.el-input {
+    width: 80px;
 }
-
-button {
-    width: 40px;
-    height: 20px;
-    margin-bottom: 2px;
-    line-height: 10px;
-    text-align: center;
-    vertical-align: middle;
-    overflow: hidden;
-    transition: .4s;
+.password {
+    width: 100% !important;
 }
 </style>
