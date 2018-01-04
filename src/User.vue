@@ -11,7 +11,7 @@
                 <table>
                     <tr>
                         <td>Point</td>
-                        <td><el-input v-model="point" type="text" placeholder="0"></el-input></td>
+                        <td><el-input v-model="point" type="text" placeholder="0" class="input_point"></el-input></td>
                     </tr>
                     <tr>
                         <td>Password</td>
@@ -90,10 +90,7 @@ export default {
 </script>
 
 <style>
-.el-input {
+.input_point {
     width: 80px;
-}
-.password {
-    width: 100% !important;
 }
 </style>

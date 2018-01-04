@@ -7,18 +7,20 @@
         <h3>
             <total v-bind:total="total"></total>
         </h3>
+        <signup></signup>
     </div>
 </template>
 
 <script>
 import User from './User.vue'
 import Total from './Total.vue'
+import Signup from './Signup.vue'
 const config = require('./config.js')
 window.config = config
 
 export default {
     name: 'app',
-    components: { User, Total },
+    components: { User, Total, Signup },
     data () {
         return {
             title: config.TITLE,
@@ -69,7 +71,7 @@ h1, h2 {
 
 h3 {
     width: 300px;
-    margin: 0 auto;
+    margin: 10px auto 0 auto;
     text-align: left;
     padding-left: 5px;
 }

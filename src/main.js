@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk/icon.css'
 import 'element-ui/lib/theme-chalk/button.css'
 import 'element-ui/lib/theme-chalk/input.css'
 import 'element-ui/lib/theme-chalk/dialog.css'
+import 'element-ui/lib/theme-chalk/message.css'
 
 Vue.use(Button)
 Vue.use(Input)
