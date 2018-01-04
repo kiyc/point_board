@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 export default {
     props: ['user'],
     data () {
@@ -51,9 +52,7 @@ export default {
             formdata.append('password', this.password)
             formdata.append('point', point)
 
-            this.point = 0
-            this.password = ''
-            this.dialogVisible = false
+            this.closeDialog()
 
             fetch(
                 // update point
@@ -75,9 +74,18 @@ export default {
                     return response.json()
                 }).then(json => {
                     this.user.point = Number(json.point)
+                    Message({
+                        showClose: true,
+                        message: 'Success update point.',
+                        type: 'success',
+                    })
                 })
             }).catch(error => {
-                alert(error)
+                Message({
+                    showClose: true,
+                    message: '' + error,
+                    type: 'error'
+                })
             })
         },
         closeDialog: function() {
