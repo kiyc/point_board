@@ -65,6 +65,7 @@ export default {
                 }
                 return status
             }).then(status => {
+                this.$emit('fetchUsers')
                 Message({
                     showClose: true,
                     message: 'Success sign up your account.',

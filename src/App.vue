@@ -27,7 +27,7 @@
                     <el-button type="primary" v-on:click="updatePoint">Submit</el-button>
                 </span>
             </el-dialog>
-        <signup></signup>
+        <signup v-on:fetchUsers="fetchUsers"></signup>
     </div>
 </template>
 
