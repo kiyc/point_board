@@ -1,6 +1,6 @@
 # point_board
 
-> A Vue.js project
+> A Vue.js and PHP project
 
 ## Build Setup
 
@@ -13,6 +13,9 @@ npm run dev
 
 # build for production with minification
 npm run build
+
+# PHP built-in web server for API
+# API url describe in src/config.js
+php -S localhost:8000
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
