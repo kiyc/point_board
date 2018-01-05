@@ -3,6 +3,7 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+db/point_board.db
 
 # Editor directories and files
 .idea
