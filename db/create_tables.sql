@@ -14,3 +14,17 @@ CREATE TABLE IF NOT EXISTS point_logs (
     point_diff INTEGER NOT NULL,
     created TEXT NOT NULL
 );
+
+DROP TABLE IF EXISTS badges;
+CREATE TABLE IF NOT EXISTS badges (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    src TEXT NOT NULL
+);
+
+DROP TABLE IF EXISTS user_badge;
+CREATE TABLE IF NOT EXISTS user_badge (
+    user_id INTEGER NOT NULL,
+    badge_id INTEGER NOT NULL
+);
+CREATE INDEX user_badge_index ON user_badge(user_id, badge_id);
