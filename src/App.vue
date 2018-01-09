@@ -36,9 +36,9 @@
         <el-dialog
             title="Select badge and input password"
             :visible.sync="badgeDialogVisible"
-            width="30%"
+            width="35%"
             :before-close="closeBadgeDialog">
-            <table>
+            <table class="badge_board_table">
                 <tr>
                     <td></td>
                     <td>
@@ -268,5 +268,9 @@ a {
 
 .input_point {
     width: 80px;
+}
+
+table.badge_board_table {
+    width: 350px;
 }
 </style>
