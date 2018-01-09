@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS users;
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    point INTEGER NOT NULL,
+    created DATETIME NOT NULL
+);
+
+DROP TABLE IF EXISTS point_logs;
+CREATE TABLE IF NOT EXISTS point_logs (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    user_id INTEGER NOT NULL,
+    point_diff INTEGER NOT NULL,
+    created DATETIME NOT NULL
+);
+
+DROP TABLE IF EXISTS badges;
+CREATE TABLE IF NOT EXISTS badges (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    src TEXT NOT NULL
+);
+
+DROP TABLE IF EXISTS user_badge;
+CREATE TABLE IF NOT EXISTS user_badge (
+    user_id INTEGER NOT NULL,
+    badge_id INTEGER NOT NULL
+);
+CREATE INDEX user_badge_index ON user_badge(user_id, badge_id);
